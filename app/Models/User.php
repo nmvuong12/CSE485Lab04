@@ -23,7 +23,7 @@ class User extends Authenticatable
         'password',
     ];
     public $timestamps = false; // Tắt timestamps
-
+    
     /**
      * The attributes that should be hidden for serialization.
      *
