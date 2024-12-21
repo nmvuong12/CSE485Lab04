@@ -52,7 +52,6 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Add Borrow Record</button>
-            <a href="{{ route('borrows.index') }}" class="btn btn-secondary">Back to Borrow List</a>
         </form>
     </div>
 </body>

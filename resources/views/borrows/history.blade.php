@@ -10,8 +10,6 @@
     <div class="container mt-4">
         <h1>Borrow History for {{ $reader->name }}</h1>
 
-        <a href="{{ route('borrows.index') }}" class="btn btn-secondary mb-3">Back to Borrow List</a>
-
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -23,17 +21,23 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($history as $record)
+                @foreach($borrows as $borrow)
                     <tr>
-                        <td>{{ $record->id }}</td>
-                        <td>{{ $record->book->title }}</td>
-                        <td>{{ $record->borrow_date }}</td>
-                        <td>{{ $record->return_date ?? 'Not Returned' }}</td>
-                        <td>{{ $record->status ? 'Returned' : 'Not Returned' }}</td>
+                        <td>{{ $borrow->id }}</td>
+                        <td>{{ $borrow->book->title }}</td>
+                        <td>{{ $borrow->borrow_date }}</td>
+                        <td>{{ $borrow->return_date ?? 'Not Returned' }}</td>
+                        <td>{{ $borrow->status ? 'Returned' : 'Not Returned' }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+
+        <p>Total Books Borrowed: {{ $totalBooks }}</p>
+        <p>Books Returned: {{ $returnedBooks }}</p>
+        <p>Books Not Returned: {{ $notReturnedBooks }}</p>
+
+        <a href="{{ route('borrows.index') }}" class="btn btn-secondary">Back to Borrow List</a>
     </div>
 </body>
 </html>
