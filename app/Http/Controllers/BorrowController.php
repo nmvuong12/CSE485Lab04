@@ -14,9 +14,10 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        $borrows = Borrow::with('reader', 'book')->get(); // Load quan hệ Reader và Book
-        return view("borrows.index", ["borrows" => $borrows]);
+    $borrows = Borrow::with(['reader', 'book'])->orderBy('borrow_date', 'desc')->get();
+    return view('borrows.index', compact('borrows'));
     }
+
 
     /**
      * Tạo bản ghi mới cho việc mượn sách.
@@ -33,9 +34,9 @@ class BorrowController extends Controller
         Borrow::create([
             'reader_id' => $request->reader_id,
             'book_id' => $request->book_id,
-            'borrowed_at' => $request->borrow_date,
-            'return_due_at' => $request->return_date,
-            'status' => 'borrowed',
+            'borrow_date' => $request->borrow_date,
+            'return_date' => $request->return_date,
+            'status' => '1',
         ]);
 
         return redirect()->route("borrows.index")->with("success", "Borrow record created successfully.");
@@ -44,34 +45,45 @@ class BorrowController extends Controller
     /**
      * Ghi nhận trả sách.
      */
-    public function updateReturn(Request $request, $id)
-    {
-        $borrow = Borrow::findOrFail($id);
+    public function markAsReturned($id)
+{
+    $borrow = Borrow::findOrFail($id);
 
-        if ($borrow->returned_at) {
-            return redirect()->route("borrows.index")->with("error", "Book has already been returned.");
-        }
-
-        $borrow->update([
-            'returned_at' => now(),
-            'status' => 'returned',
-        ]);
-
-        return redirect()->route("borrows.index")->with("success", "Book return recorded successfully.");
+    if ($borrow->status === 'returned') {
+        return redirect()->back()->with('error', 'This book has already been returned.');
     }
+
+    $borrow->update([
+        'status' => 'returned',
+        'return_date' => now(),
+    ]);
+
+    return redirect()->back()->with('success', 'Book marked as returned successfully.');
+}
+
 
     /**
      * Hiển thị lịch sử mượn trả của độc giả.
      */
     public function history(Request $request)
-    {
-        $history = null;
-        if ($request->has('reader_id')) {
-            $history = Borrow::with('book')
-                ->where('reader_id', $request->reader_id)
-                ->get();
-        }
-
-        return view('borrows.history', compact('history'));
+{
+    $readerId = $request->get('reader_id');
+    
+    if (!$readerId) {
+        return redirect()->route('borrows.index')->with('error', '');
     }
+
+    $history = Borrow::with('book')
+        ->where('reader_id', $readerId)
+        ->orderBy('borrow_at', 'desc')
+        ->get();
+
+    return view('borrows.history', compact('history'));
+}public function readerHistory($readerId)
+{
+    $reader = Reader::with(['borrows.book'])->findOrFail($readerId);
+    return view('borrows.history', compact('reader'));
+}
+
+
 }

@@ -1,41 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="mb-4">Sách đã được mượn</h1>
+<h1>Borrowed Books</h1>
+
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+@endif
 
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Số thứ tự</th>
-            <th>Mã người đọc</th>
-            <th>Mã sách</th>
-            <th>Ngày mượn</th>
-            <th>Ngày Trả</th>
-            <th>Trạng thái</th>
-            <th>Ngày tạo</th>
-            <th>Ngày cập nhật</th>
+            <th>#</th>
+            <th>Reader</th>
+            <th>Book</th>
+            <th>Borrow Date</th>
+            <th>Return Date</th>
+            <th>Status</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($borrows as $borrows)
+        @foreach($borrows as $borrow)
         <tr>
-            <td>{{ $borrows->id }}</td>
-            <td>{{ $borrows->reader_id}}</td>
-            <td>{{ $borrows->book_id }}</td>
-            <td>{{ $borrows->borrow_at }}</td>
-            <td>{{ $borrows->return_at }}</td>
-            <td>{{ $borrows->status ?? '0' }}</td>
-            <td>{{ $borrows->create_at }}</td>
-            <td>{{ $borrows->update_at }}</td>
+            <td>{{ $borrow->id }}</td>
+            <td>{{ $borrow->reader->name }}</td>
+            <td>{{ $borrow->book->title }}</td>
+            <td>{{ $borrow->borrow_date }}</td>
+            <td>{{ $borrow->return_date ?? 'Not Returned' }}</td>
             <td>
-                @if (!$borrows->status)
-                <form action="{{ route('borrows.return', $borrows->id) }}" method="POST">
+                <span class="badge {{ $borrow->status === 'borrowed' ? 'bg-warning' : 'bg-success' }}">
+                    {{ ucfirst($borrow->status) }}
+                </span>
+            </td>
+            <td>
+                @if($borrow->status === 'borrowed')
+                <form action="{{ route('borrows.return', $borrow->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
-                    <button type="submit" class="btn btn-success btn-sm">Đánh dấu nộp</button>
+                    <button type="submit" class="btn btn-success btn-sm">Mark as Returned</button>
                 </form>
                 @else
-                <span class="text-success">Đã nộp</span>
+                <span class="text-muted">Returned</span>
                 @endif
             </td>
         </tr>
