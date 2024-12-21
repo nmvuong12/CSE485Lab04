@@ -1,7 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BorrowController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//route borrow
+Route::get('/', [BorrowController::class, 'index'])->name('borrows.index');
+Route::get('/borrows/create', [BorrowController::class, 'create'])->name('borrows.create');
+Route::post('/borrows', [BorrowController::class, 'store'])->name('borrows.store');
+Route::patch('/borrows/{id}/return', [BorrowController::class, 'markAsReturned'])->name('borrows.return');
+Route::get('/readers/{readerId}/history', [BorrowController::class, 'readerHistory'])->name('readers.history');
+
+

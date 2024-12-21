@@ -19,7 +19,6 @@ return new class extends Migration
             $table->date('return_date');
             $table->boolean('status')->default(0); //0: đang mượn; 1: đã trả
             $table->timestamps();
-
             $table->foreign('reader_id')->references('id')->on('readers');
             $table->foreign('book_id')->references('id')->on('books');
         });
