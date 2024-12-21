@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Borrow Management</title>
+    <title>Quản Lý Mượn Trả Sách</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -174,23 +174,23 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-5">
-                        <h2>Borrow <b>Management</b></h2>
+                        <h2>Quản lý <b>Mượn Trả Sách</b></h2>
                     </div>
                     <div class="col-sm-7">
-                        <a href="{{ route('borrows.create') }}" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New Borrow</span></a>
+                        <a href="{{ route('borrows.create') }}" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Thêm người mượn mới</span></a>
                     </div>
                 </div>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Reader</th>
-                        <th>Book</th>
-                        <th>Borrow Date</th>
-                        <th>Return Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>Số thứ tự</th>
+                        <th>Người đọc</th>
+                        <th>Tên sách</th>
+                        <th>Ngày mượn</th>
+                        <th>Ngày trả</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -203,10 +203,10 @@
                         <td>{{ $borrow->return_date }}</td>
                         <td>
                             @if($borrow->status)
-                                <span class="status text-success">&bull;</span> Returned
+                                <span class="status text-success">&bull;</span> Đã trả
                             @else
-                                <span class="status text-danger">&bull;</span> Not Returned
-                            @endif
+                                <span class="status text-danger">&bull;</span> Chưa trả 
+                           @endif
                         </td>
                         <td>
                             <a href="{{ route('readers.history', $borrow->reader->id) }}" class="settings" title="View History" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
@@ -225,7 +225,7 @@
                 </tbody>
             </table>
             <div class="clearfix">
-                <div class="hint-text">Showing <b>{{ $borrows->count() }}</b> out of <b>{{ $borrows->total() }}</b> entries</div>
+                <div class="hint-text">Trang <b>{{ $borrows->count() }}</b> trên <b>{{ $borrows->total() }}</b> trang</div>
                 {{ $borrows->links() }}
             </div>
         </div>
