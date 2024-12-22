@@ -12,23 +12,24 @@
 
 <div class="container mt-5">
     <h1>Thêm Độc Giả</h1>
-    <form action="#" method="POST">
-        <!-- ID -->
-        <div class="mb-3">
-            <label for="id" class="form-label">ID</label>
-            <input type="text" class="form-control" id="id" name="id" required>
-        </div>
-
+    <form action="{{route('readers.store')}}" method="POST">
+        @csrf
         <!-- Họ Tên -->
         <div class="mb-3">
-            <label for="fullName" class="form-label">Họ Tên</label>
-            <input type="text" class="form-control" id="fullName" name="fullName" required>
+            <label for="name" class="form-label">Họ Tên</label>
+            <input type="text" class="form-control" id="Name" name="name" required>
+        </div>
+
+        <!-- So dien thoai -->
+        <div class="mb-3">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" id="phone" name="phone" required>
         </div>
 
         <!-- Ngày Sinh -->
         <div class="mb-3">
-            <label for="dob" class="form-label">Ngày Sinh</label>
-            <input type="date" class="form-control" id="dob" name="dob" required>
+            <label for="birthday" class="form-label">Ngày Sinh</label>
+            <input type="date" class="form-control" id="dob" name="birthday" required>
         </div>
 
         <!-- Địa Chỉ -->
@@ -36,6 +37,7 @@
             <label for="address" class="form-label">Địa Chỉ</label>
             <input type="text" class="form-control" id="address" name="address" required>
         </div>
+
 
         <!-- Nút submit -->
         <button type="submit" class="btn btn-primary">Thêm Độc Giả</button>
