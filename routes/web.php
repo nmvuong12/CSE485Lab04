@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use App\Http\Controllers\BookController;
 
 
@@ -14,6 +15,20 @@ Route::post('/data/store', [BookController::class, 'store'])->name('data.store')
 
 Route::resource('books', BookController::class);
 
+=======
+use App\Http\Controllers\AuthController;
+>>>>>>> origin/main
 Route::get('/', function () {
+    return view('auth.login');
+})->name('showLogin');
+Route::get('/home', function () {
     return view('welcome');
+<<<<<<< HEAD
 });
+=======
+})->name('welcome');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.showRegister');
+Route::post('/register', [AuthController::class, 'storeRegister'])->name('auth.register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+>>>>>>> origin/main
