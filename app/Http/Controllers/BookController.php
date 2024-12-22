@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -11,7 +11,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::paginate(10);  // Lấy tất cả sách từ cơ sở dữ liệu
+        return view('books.index', compact('books'));  // Trả về view 'books.index' với danh sách sách
     }
 
     /**
@@ -19,7 +20,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('books.create');
     }
 
     /**
@@ -27,7 +28,17 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'author' => 'required|max:255',
+            'category' => 'nullable|max:100',
+            'year' => 'nullable|integer',
+            'quantity' => 'nullable|integer',
+        ]);
+     // Lưu sách vào cơ sở dữ liệu
+     Book::create($request->all());
+
+     return redirect()->route('books.index')->with('success', 'Book created successfully!');
     }
 
     /**
@@ -35,7 +46,8 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $book = Book::findOrFail($id);  // Tìm sách theo ID
+        return view('books.show', compact('book'));
     }
 
     /**
@@ -43,7 +55,8 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $book = Book::findOrFail($id);  // Tìm sách theo ID
+        return view('books.edit', compact('book'));
     }
 
     /**
@@ -51,7 +64,18 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'author' => 'required|max:255',
+            'category' => 'nullable|max:100',
+            'year' => 'nullable|integer',
+            'quantity' => 'nullable|integer',
+        ]);
+
+        $book = Book::findOrFail($id);  // Tìm sách theo ID
+        $book->update($request->all());
+
+        return redirect()->route('books.index')->with('success', 'Book updated successfully!');
     }
 
     /**
@@ -59,6 +83,9 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $book = Book::findOrFail($id);  // Tìm sách theo ID
+        $book->delete();
+
+        return redirect()->route('books.index')->with('success', 'Book deleted successfully!');
     }
 }
