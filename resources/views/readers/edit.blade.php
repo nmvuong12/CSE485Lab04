@@ -11,25 +11,32 @@
 <div class="container mt-5">
     <h2 class="text-center">Chỉnh sửa thông tin độc giả</h2>
     <!-- Form chỉnh sửa thông tin độc giả -->
-    <form id="editReaderForm">
+    <form action="{{route('readers.update',$reader->id)}}" method ="post">
+        @csrf
+        @method('put')
         <div class="form-group">
             <label for="id">ID:</label>
-            <input type="text" class="form-control" id="id" placeholder="Nhập ID" value="1" disabled>
+            <input type="text" class="form-control" id="id" name="id" value="{{ $reader->id }}" disabled>
         </div>
 
         <div class="form-group">
             <label for="fullName">Họ Tên:</label>
-            <input type="text" class="form-control" id="fullName" placeholder="Nhập họ tên" value="Nguyễn Văn A">
+            <input type="text" class="form-control" id="name" name="name" value="{{ $reader->name }}">
         </div>
 
         <div class="form-group">
             <label for="birthday">Ngày Sinh:</label>
-            <input type="date" class="form-control" id="birthday" value="1990-01-01">
+            <input type="date" class="form-control" name="birthday" value="{{ $reader->birthday }}">
         </div>
 
         <div class="form-group">
-            <label for="phone">Số Điện Thoại:</label>
-            <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại" value="123-456-7890">
+            <label for="address">Địa chỉ:</label>
+            <input type="text" class="form-control" name="address" value="{{ $reader->address }}">
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Số điện thoại:</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{ $reader->phone }}">
         </div>
 
         <div class="form-group text-center">
@@ -39,33 +46,6 @@
     </form>
 </div>
 
-<!-- jQuery và Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        $('#editReaderForm').on('submit', function (e) {
-            e.preventDefault(); // Ngừng gửi form mặc định
-
-            // Lấy dữ liệu từ form
-            var id = $('#id').val();
-            var fullName = $('#fullName').val();
-            var birthday = $('#birthday').val(); // Lấy ngày sinh từ "birthday"
-            var phone = $('#phone').val();
-
-            // Xử lý chỉnh sửa dữ liệu (ví dụ: gửi AJAX đến server hoặc cập nhật giao diện)
-            console.log("Thông tin đã cập nhật:", {
-                id: id,
-                fullName: fullName,
-                birthday: birthday,  // Sử dụng "birthday" thay vì "dob"
-                phone: phone
-            });
-
-            // Thông báo cho người dùng đã lưu thông tin thành công
-            alert("Thông tin độc giả đã được cập nhật thành công!");
-        });
-    });
-</script>
 </body>
 </html>
