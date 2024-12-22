@@ -1,7 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
+
+use App\Http\Controllers\ReaderController;
+
+Route::get('/readers', [ReaderController::class, 'index'])->name('readers.index');
+Route::get('/readers/create', [ReaderController::class, 'create'])->name('readers.create');
+Route::post('/readers', [ReaderController::class, 'store'])->name('readers.store');
+Route::get('/readers/{id}/edit', [ReaderController::class, 'edit'])->name('readers.edit');
+Route::put('/reader/{id}', [ReaderController::class, 'update'])->name('readers.update');
+Route::delete('/reader/{id}', [ReaderController::class, 'destroy'])->name('readers.destroy');
+
 use App\Http\Controllers\BookController;
 
 
@@ -15,20 +24,18 @@ Route::post('/data/store', [BookController::class, 'store'])->name('data.store')
 
 Route::resource('books', BookController::class);
 
-=======
+
 use App\Http\Controllers\AuthController;
->>>>>>> origin/main
+
 Route::get('/', function () {
     return view('auth.login');
 })->name('showLogin');
 Route::get('/home', function () {
     return view('welcome');
-<<<<<<< HEAD
-});
-=======
+
 })->name('welcome');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.showRegister');
 Route::post('/register', [AuthController::class, 'storeRegister'])->name('auth.register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
->>>>>>> origin/main
+
