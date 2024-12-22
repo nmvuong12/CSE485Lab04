@@ -31,7 +31,7 @@ class ReaderController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'dob' => 'required|date',
+            'birthday' => 'required|date',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
         ]);
@@ -66,7 +66,7 @@ class ReaderController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'dob' => 'required|date',
+            'birthday' => 'required|date',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
         ]);
