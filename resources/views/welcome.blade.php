@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Cánh cửa tri thức</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Varela+Round">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merienda+One">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -142,86 +143,94 @@ body, html {
 		width: 100%;
 	}
 }
-.modal-login {		
-	color: #636363;
-	width: 350px;
+/* 
+ */
+.carousel {
+	margin: 30px auto 60px;
+	padding: 0 80px;
 }
-.modal-login .modal-content {
-	padding: 20px;
-	border-radius: 5px;
+.carousel .carousel-item {
+	text-align: center;
+	overflow: hidden;
+}
+.carousel .carousel-item h4 {
+	font-family: 'Varela Round', sans-serif;
+}
+.carousel .carousel-item img {
+	max-width: 100%;
+	display: inline-block;
+}
+.carousel .carousel-item .btn {
+	border-radius: 0;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: bold;
 	border: none;
+	background: #a177ff;
+	padding: 6px 15px;
+	margin-top: 5px;
 }
-.modal-login .modal-header {
-	border-bottom: none;   
-	position: relative;
-	justify-content: center;
+.carousel .carousel-item .btn:hover {
+	background: #8c5bff;
 }
-.modal-login h4 {
-	text-align: center;
-	font-size: 26px;
-	margin: 30px 0 -15px;
+.carousel .carousel-item .btn i {
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 5px;
 }
-.modal-login .form-control:focus {
-	border-color: #70c5c0;
+.carousel .thumb-wrapper {
+	margin: 5px;
+	text-align: left;
+	background: #fff;
+	box-shadow: 0px 2px 2px rgba(0,0,0,0.1);   
 }
-.modal-login .form-control, .modal-login .btn {
-	min-height: 40px;
-	border-radius: 3px; 
-}
-.modal-login .close {
-	position: absolute;
-	top: -5px;
-	right: -5px;
-}	
-.modal-login .modal-footer {
-	background: #ecf0f1;
-	border-color: #dee4e7;
-	text-align: center;
-	justify-content: center;
-	margin: 0 -20px -20px;
-	border-radius: 5px;
+.carousel .thumb-content {
+	padding: 15px;
 	font-size: 13px;
 }
-.modal-login .modal-footer a {
-	color: #999;
-}		
-/* .modal-login .avatar {
+.carousel-control-prev, .carousel-control-next {
+	height: 44px;
+	width: 44px;
+	background: none;	
+	margin: auto 0;
+	border-radius: 50%;
+	border: 3px solid rgba(0, 0, 0, 0.8);
+}
+.carousel-control-prev i, .carousel-control-next i {
+	font-size: 36px;
 	position: absolute;
-	margin: 0 auto;
+	top: 50%;
+	display: inline-block;
+	margin: -19px 0 0 0;
+	z-index: 5;
 	left: 0;
 	right: 0;
-	top: -70px;
-	width: 95px;
-	height: 95px;
+	color: rgba(0, 0, 0, 0.8);
+	text-shadow: none;
+	font-weight: bold;
+}
+.carousel-control-prev i {
+	margin-left: -3px;
+}
+.carousel-control-next i {
+	margin-right: -3px;
+}
+.carousel-indicators {
+	bottom: -50px;
+}
+.carousel-indicators li, .carousel-indicators li.active {
+	width: 10px;
+	height: 10px;
 	border-radius: 50%;
-	z-index: 9;
-	background: #60c7c1;
-	padding: 15px;
-	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-} 
-.modal-login .avatar img {
-	width: 100%;
-}
-.modal-login.modal-dialog {
-	margin-top: 80px;
-}
-.modal-login .btn, .modal-login .btn:active {
-	color: #fff;
-	border-radius: 4px;
-	background: #60c7c1 !important;
-	text-decoration: none;
-	transition: all 0.4s;
-	line-height: normal;
+	margin: 4px;
 	border: none;
 }
-.modal-login .btn:hover, .modal-login .btn:focus {
-	background: #45aba6 !important;
-	outline: none;
+.carousel-indicators li {	
+	background: #ababab;
 }
-.trigger-btn {
-	display: inline-block;
-	margin: 100px auto;
-} */
+.carousel-indicators li.active {	
+	background: #555;
+}
 </style>
 </head> 
 <body>
@@ -252,42 +261,64 @@ body, html {
 		</form>
 		<div class="navbar-nav ml-auto">
 			<div class="nav-item dropdown">
-					<a href="#myModal" class="trigger-btn dropdown-item" data-toggle="modal"><i class="fa fa-user-o"></i> Tôi là quản trị viên</a>
-
+				<form action="{{ route('logout') }}" method="POST">
+					@csrf
+					<button type="submit" class="trigger-btn dropdown-item"><i class="fa fa-user-o"></i>>Đăng xuất</button>
+				</form>
+					<!-- <a href="{{route('logout')}}" class="trigger-btn dropdown-item"><i class="fa fa-user-o"></i>Đăng xuất</a> -->
 			</div>
 		</div>
 	</div>
 </nav>
-<!-- Modal HTML -->
-<div id="myModal" class="modal fade">
-	<div class="modal-dialog modal-login">
-		<div class="modal-content">
-			<div class="modal-header">
-				<!-- <div class="avatar">
-					<img src="/examples/images/avatar.png" alt="Avatar">
-				</div>				 -->
-				<h4 class="modal-title">Quản trị viên</h4>	
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			</div>
-			<div class="modal-body">
-				<form action="{{route('login')}}" method="POST">
-					@csrf
-					<div class="form-group">
-						<input type="text" class="form-control" name="username" placeholder="Tên tài khoản" required="required">		
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control" name="password" placeholder="Mật khẩu" required="required">	
-					</div>        
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-lg btn-block login-btn">Đăng nhập</button>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<a href="{{route('auth.register')}}">Đăng kí</a>
-			</div>
-		</div>
-	</div>
-</div> 
+<div class="container-xl">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div id="myCarousel" class="carousel slide">
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="thumb-wrapper">
+                                    <div class="img-box">
+                                        <img src="/examples/images/cities/london.png" class="img-fluid" alt="">
+                                    </div>
+                                    <div class="thumb-content">
+                                        <h4>Quản lý sách</h4>
+                                        <a href="{{route('books.index')}}" class="btn btn-primary">Đi tới <i class="fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="thumb-wrapper">
+                                    <div class="img-box">
+                                        <img src="/examples/images/cities/new-york.png" class="img-fluid" alt="">
+                                    </div>
+                                    <div class="thumb-content">
+                                        <h4>Quản lý độc giả</h4>
+                                        <a href="{{route('readers.index')}}" class="btn btn-primary">Đi tới <i class="fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="thumb-wrapper">
+                                    <div class="img-box">
+                                        <img src="/examples/images/cities/paris.png" class="img-fluid" alt="">
+                                    </div>
+                                    <div class="thumb-content">
+                                        <h4>Mượn/Trả sách</h4>
+                                        <a href="{{route('borrows.index')}}" class="btn btn-primary">Đi tới <i class="fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of carousel -->
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>                            

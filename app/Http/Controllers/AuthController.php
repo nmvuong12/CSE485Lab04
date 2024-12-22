@@ -33,16 +33,28 @@ class AuthController extends Controller
             'email' => $request->email,
         ]);
 
-        return redirect()->intended('welcome');
+        return redirect()->intended(route('welcome'));
     }
     public function login(Request $request)
     {
         $credentials = $request->only('username', 'password');
         if (Auth::attempt($credentials))
         {
-            return redirect()->intended('welcome');
+            // return 'đăng nhập thành công';
+            return redirect()->intended(route('welcome'));
         }
         return back()->withErrors(['Thông tin đăng nhập không chính xác']);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->intended(route('showLogin'));
     }
     
 }
