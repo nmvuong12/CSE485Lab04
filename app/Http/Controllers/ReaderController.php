@@ -37,7 +37,7 @@ class ReaderController extends Controller
         ]);
 
         Reader::create($request->all());
-
+        //return 'okkkk';
         return redirect()->route('readers.index')->with('success', 'Thêm độc giả thành công!');
     }
 
